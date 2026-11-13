@@ -240,12 +240,22 @@ class GatewayWorker(QThread):
             raise ValueError("Troppi dispositivi (massimo 512)")
         # Validate before sending even the first destructive command.
         encoded = []
+        seen_scs_addresses = set()
         for record in records:
             addr = str(record["id"]).upper()
             if len(addr) != 4 or any(x not in "0123456789ABCDEF" for x in addr):
                 raise ValueError(f"ID di dispositivo non valido: {addr}")
             if len(str(record.get("name", ""))) > 80:
                 raise ValueError(f"Descrizione troppo lunga: {addr}")
+            maxp = str(record.get("maxp") or "0")
+            if not maxp.isascii() or not maxp.isdecimal() or len(maxp) > 6:
+                raise ValueError(f"maxP non valido: {addr}")
+            if gate == "SCS":
+                if addr[-2:] in seen_scs_addresses:
+                    raise ValueError(
+                        f"Indirizzo SCS duplicato: {addr[-2:]} "
+                        "(la rete non è trasmessa in modalità SCS)")
+                seen_scs_addresses.add(addr[-2:])
             payload = {
                 "device": addr if gate == "KNX" else addr[-2:],
                 "type": device_type_code(str(record["kind"]), gate, cover),
