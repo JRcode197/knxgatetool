@@ -1,0 +1,17 @@
+{
+  "format": "KNXGateTool",
+  "version": 1,
+  "devices": [
+    {
+      "id": "0EA1",
+      "name": "Apri Porta Ingresso",
+      "category": "Luci",
+      "kind": "LUCE",
+      "maxp": "0",
+      "status": "",
+      "last_command": "",
+      "telegrams": {},
+      "inferred": []
+    }
+  ]
+}
