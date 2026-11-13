@@ -43,9 +43,16 @@ jobs:
         run: python -m pip install -e . pyinstaller
       - name: Build desktop app
         run: pyinstaller --noconfirm --clean --windowed --name KNXGateTool --paths . knxgatetool/__main__.py
+      - name: Package Windows ZIP
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: Compress-Archive -Path dist/KNXGateTool -DestinationPath dist/KNXGateTool-Windows.zip
+      - name: Package macOS ZIP (preserve app permissions)
+        if: runner.os == 'macOS'
+        run: ditto -c -k --sequesterRsrc --keepParent dist/KNXGateTool.app dist/KNXGateTool-macOS.zip
       - name: Upload desktop artifact
         uses: actions/upload-artifact@v4
         with:
           name: KNXGateTool-${{ runner.os }}
-          path: dist/KNXGateTool*
+          path: dist/*.zip
           if-no-files-found: error
