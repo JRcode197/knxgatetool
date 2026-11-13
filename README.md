@@ -8,8 +8,8 @@ Un'applicazione desktop moderna per Windows 11 e macOS per i gateway **ESP_KNXGA
 
 Aprire [GitHub Actions – Tests and desktop builds](https://github.com/JRcode197/knxgatetool/actions/workflows/build.yml), scegliere **l'ultima esecuzione riuscita** e, nella sezione **Artifacts**, scaricare:
 
-- **KNXGateTool-Windows**: estrarre lo ZIP contenuto nell'artifact e avviare \`KNXGateTool.exe\` dalla cartella estratta su Windows 11.
-- **KNXGateTool-macOS**: estrarre lo ZIP contenuto nell'artifact e aprire \`KNXGateTool.app\` su macOS. L'app non è notarizzata da Apple: il primo avvio può richiedere una conferma nelle impostazioni Sicurezza.
+- **KNXGateTool-Windows**: estrarre lo ZIP contenuto nell'artifact e avviare `KNXGateTool.exe` dalla cartella estratta su Windows 11.
+- **KNXGateTool-macOS**: estrarre lo ZIP contenuto nell'artifact e aprire `KNXGateTool.app` su macOS. L'app non è notarizzata da Apple: il primo avvio può richiedere una conferma nelle impostazioni Sicurezza.
 
 Il file ZIP distribuito dall'azione contiene l'app PyInstaller e le dipendenze Qt: **non serve installare Python** per usarla. Se non è disponibile alcun artifact, verificare la conclusione del workflow. Gli artifact GitHub Actions possono scadere.
 
