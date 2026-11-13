@@ -732,6 +732,14 @@ class MainWindow(QMainWindow):
         self.logs.clear()
 
     def closeEvent(self, event) -> None:
+        if self.transferring:
+            event.ignore()
+            QMessageBox.warning(
+                self, "Trasferimento in corso",
+                "Il download o upload non è ancora terminato. "
+                "Per evitare una configurazione incompleta del gateway, "
+                "chiudi il programma dopo il completamento.")
+            return
         self._settings_save()
         self._save_registry()
         self.worker.shutdown()
