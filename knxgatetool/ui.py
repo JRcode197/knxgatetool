@@ -716,7 +716,7 @@ class MainWindow(QMainWindow):
         dev = self.registry.observe(event)
         self._log(f"{event.protocol} {event.device_id}  "
                   f"{event.action or '?'}  cmd={event.command}")
-        self._refresh_table(dev.id)
+        self._refresh_table(None if self._selected_device() else dev.id)
         self._schedule_save()
 
     def _export_log(self) -> None:
